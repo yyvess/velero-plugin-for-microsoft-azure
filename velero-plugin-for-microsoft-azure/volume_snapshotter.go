@@ -26,7 +26,7 @@ import (
 	"strings"
 	"time"
 
-	disk "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2019-07-01/compute"
+	disk "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2021-12-01/compute"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure/auth"
 	"github.com/pkg/errors"
@@ -197,7 +197,7 @@ func (b *VolumeSnapshotter) CreateVolumeFromSnapshot(snapshotID, volumeType, vol
 		Location: snapshotInfo.Location,
 		DiskProperties: &disk.DiskProperties{
 			CreationData: &disk.CreationData{
-				CreateOption:     disk.Copy,
+				CreateOption:     disk.DiskCreateOptionCopy,
 				SourceResourceID: stringPtr(snapshotIdentifier.String()),
 			},
 		},
@@ -265,7 +265,7 @@ func (b *VolumeSnapshotter) CreateSnapshot(volumeID, volumeAZ string, tags map[s
 		Name: &snapshotName,
 		SnapshotProperties: &disk.SnapshotProperties{
 			CreationData: &disk.CreationData{
-				CreateOption:     disk.Copy,
+				CreateOption:     disk.DiskCreateOptionCopy,
 				SourceResourceID: &fullDiskName,
 			},
 			Incremental: b.snapsIncremental,

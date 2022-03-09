@@ -17,4 +17,8 @@ debug
 *.diff
 .vs
 
+.idea/
+/*.iml
+
 _tiltbuild
+/coverage.out
